@@ -1,7 +1,11 @@
 workspace:
   id: 772adf02-8346-4b98-8ce3-f1fe51768cef
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
 cloudResources:
   collections:
     ../postman/collections/Simple Grocery Store API: 56131377-2cf90ae3-57e1-42b0-af24-ce67ff6948a4
     ../postman/collections/My Collection: 56131377-5f604f89-da80-4d69-affe-ac63c58cc609
     ../postman/collections/Trello API Assignment: 56131377-8b19185b-2021-4187-96a0-c7520f277633
+    ../postman/collections/CleanGroceryStoreAPI: 56131377-7c95386d-3753-4e57-8255-6f5f9381fd22
