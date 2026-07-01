@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{baseUrl}}/orders/:orderId"
+method: DELETE
+pathVariables:
+  orderId: "{{orderId}}"
+body:
+  type: json
+  content: "{\r
+
+    \    \"cartId\": \"{{cartId}}\",\r
+
+    \    \"customerName\": \"{{$randomFullName}}\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 204\", function () {\r
+
+      \    pm.response.to.have.status(204);\r
+
+      });"
+    language: text/javascript
+order: 17000

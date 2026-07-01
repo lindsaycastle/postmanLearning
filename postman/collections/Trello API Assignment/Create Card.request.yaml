@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/1/cards/?idList={{TodoListId}}&token={{vault:Trello_token}}&key={{vault:Trello_API_key}}&name=add card to list via API"
+method: POST
+headers:
+  Accept: application/json
+queryParams:
+  - key: idList
+    value: "{{TodoListId}}"
+  - key: token
+    value: "{{vault:Trello_token}}"
+  - key: key
+    value: "{{vault:Trello_API_key}}"
+  - key: name
+    value: add card to list via API
+    $type: string
+order: 5000

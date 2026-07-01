@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/1/lists/:Listid/cards?key={{vault:Trello_API_key}}&token={{vault:Trello_token}}"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  key: "{{vault:Trello_API_key}}"
+  token: "{{vault:Trello_token}}"
+pathVariables:
+  Listid: "{{DoneListID}}"
+order: 3000

@@ -1,0 +1,43 @@
+$kind: http-request
+url: "{{baseUrl}}/orders/:orderId"
+method: GET
+pathVariables:
+  orderId: "{{orderId}}"
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 404\", function () {\r
+
+      \    pm.response.to.have.status(404);\r
+
+      });\r
+
+      \r
+
+      pm.test('Correct order in error message', () => {\r
+
+      \    \r
+
+      \    const response = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(response).to.be.an('object');\r
+
+      \    pm.expect(response).to.haveOwnProperty('error');\r
+
+      \r
+
+      \r
+
+      \    pm.expect(response.error).to.contain(pm.collectionVariables.get('orderId'));\r
+
+      })"
+    language: text/javascript
+order: 18000

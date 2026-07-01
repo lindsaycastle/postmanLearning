@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/1/boards/:id?token={{vault:Trello_token}}&key={{vault:Trello_API_key}}"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  token: "{{vault:Trello_token}}"
+  key: "{{vault:Trello_API_key}}"
+pathVariables:
+  id: "{{boardId}}"
+order: 7000

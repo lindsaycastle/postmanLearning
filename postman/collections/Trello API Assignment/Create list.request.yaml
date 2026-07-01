@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/1/list/?idBoard={{boardId}}&token={{vault:Trello_token}}&key={{vault:Trello_API_key}}&name=extra List"
+method: POST
+headers:
+  Accept: application/json
+queryParams:
+  idBoard: "{{boardId}}"
+  token: "{{vault:Trello_token}}"
+  key: "{{vault:Trello_API_key}}"
+  name: extra List
+order: 6000

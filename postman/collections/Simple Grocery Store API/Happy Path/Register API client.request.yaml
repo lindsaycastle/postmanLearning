@@ -1,0 +1,54 @@
+$kind: http-request
+url: "{{baseUrl}}/api-clients"
+method: POST
+headers:
+  Authorization: "{{vault:groc_ath}}"
+body:
+  type: json
+  content: "{\r
+
+    \   \"clientName\": \"Its me, ded\",\r
+
+    \   \"clientEmail\": \"{{$randomEmail}}\"\r
+
+    }"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Auth created successfully\", () => {\r
+
+      \r
+
+      \    pm.expect(response).to.be.an('object');\r
+
+      \    pm.expect(response).to.haveOwnProperty(\"accessToken\");\r
+
+      \    pm.expect(response.accessToken).to.be.a('string');\r
+
+      \r
+
+      \    const accessToken = response.accessToken;\r
+
+      \r
+
+      \    pm.collectionVariables.set(\"accessToken\", accessToken);\r
+
+      });"
+    language: text/javascript
+  - type: beforeRequest
+    code: "\r\n"
+    language: text/javascript
+order: 13000

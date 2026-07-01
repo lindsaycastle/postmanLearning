@@ -1,0 +1,82 @@
+$kind: http-request
+url: "{{baseUrl}}/products?category=coffee"
+method: GET
+queryParams:
+  - key: category
+    value: coffee
+  - key: results
+    value: "1"
+    disabled: true
+  - key: available
+    value: "false"
+    disabled: true
+    $type: boolean
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      pm.test(\"At least one valid product exsists\", () => {\r
+
+      const response = pm.response.json();\r
+
+      \    pm.expect(response).to.be.an('array');\r
+
+      \    pm.expect(response.length).to.be.above(0);\r
+
+      \r
+
+      \    const product = response[0];\r
+
+      \    pm.expect(product).to.be.an('object');\r
+
+      \    pm.expect(product).to.haveOwnProperty('id');\r
+
+      \    pm.expect(product.id).to.be.a('number');\r
+
+      \    pm.expect(product).to.haveOwnProperty('inStock');\r
+
+      \    pm.expect(product.inStock).to.be.true;\r
+
+      \r
+
+      \    pm.collectionVariables.set(\"productId\", response[0].id);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Replacement product exists\", () => {\r
+
+      const response = pm.response.json();\r
+
+      \    pm.expect(response.length).to.be.above(1);\r
+
+      \r
+
+      \    const product = response[1];\r
+
+      \    pm.expect(product).to.be.an('object');\r
+
+      \    pm.expect(product).to.haveOwnProperty('id');\r
+
+      \    pm.expect(product.id).to.be.a('number');\r
+
+      \    pm.expect(product).to.haveOwnProperty('inStock');\r
+
+      \    pm.expect(product.inStock).to.be.true;\r
+
+      \r
+
+      \    pm.collectionVariables.set(\"replacementProductId\", product.id);\r
+
+      });\r
+
+      \r\n"
+    language: text/javascript
+order: 2000

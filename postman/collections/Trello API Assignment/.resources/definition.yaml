@@ -1,0 +1,14 @@
+$kind: collection
+variables:
+  baseUrl: ""
+  boardId: ""
+  TodoListId: ""
+  DoingListId: ""
+  DoneListID: ""
+  CardId: ""
+auth:
+  - id: 21eca14c-1d6d-48be-a79e-c76f0fac78dc
+    type: oauth2
+    name: oauth2 auth
+    credentials:
+      addTokenTo: header

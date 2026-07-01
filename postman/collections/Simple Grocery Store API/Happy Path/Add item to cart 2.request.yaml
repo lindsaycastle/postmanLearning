@@ -1,0 +1,55 @@
+$kind: http-request
+url: "{{baseUrl}}/carts/:cartId/items"
+method: POST
+pathVariables:
+  cartId: "{{cartId}}"
+body:
+  type: json
+  content: "{\r
+
+    \    \"productId\": {{productId}},\r
+
+    \    \"quantity\": 1\r
+
+    }"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Item created successfully\", () => {\r
+
+      \    const response = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(response).to.be.an('object');\r
+
+      \    \r
+
+      \    pm.expect(response).to.haveOwnProperty(\"created\");\r
+
+      \    pm.expect(response.created).to.be.true;\r
+
+      \    pm.expect(response).to.haveOwnProperty(\"itemId\");\r
+
+      \    pm.expect(response.itemId).to.be.a('number');\r
+
+      \r
+
+      \    const itemId = response.itemId;\r
+
+      \    pm.collectionVariables.set(\"itemId\", itemId);\r
+
+      \r
+
+      })"
+    language: text/javascript
+order: 12000

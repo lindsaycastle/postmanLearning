@@ -1,0 +1,29 @@
+$kind: http-request
+url: "{{baseUrl}}/carts/:cartId/items"
+method: GET
+pathVariables:
+  - key: cartId
+    value: "{{cartId}}"
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 7000

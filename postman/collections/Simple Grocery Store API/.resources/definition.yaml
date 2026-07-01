@@ -1,0 +1,10 @@
+$kind: collection
+variables:
+  baseUrl: https://simple-grocery-store-api.click
+  cartId: ""
+  firstname: ""
+  productId: ""
+  itemId: ""
+  replacementProductId: "4643"
+  orderId: ""
+  accessToken: ""
