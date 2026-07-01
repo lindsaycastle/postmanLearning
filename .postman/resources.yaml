@@ -9,3 +9,7 @@ cloudResources:
     ../postman/collections/My Collection: 56131377-5f604f89-da80-4d69-affe-ac63c58cc609
     ../postman/collections/Trello API Assignment: 56131377-8b19185b-2021-4187-96a0-c7520f277633
     ../postman/collections/CleanGroceryStoreAPI: 56131377-7c95386d-3753-4e57-8255-6f5f9381fd22
+
+localResources:
+  collections:
+    - ../CleanGroceryStoreAPI.postman_collection.json
