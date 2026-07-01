@@ -1,0 +1,68 @@
+$kind: http-request
+url: "{{baseUrl}}/orders"
+method: GET
+headers:
+  - key: Authorization
+    value: Bearer:{{vault:groc_ath}}
+    disabled: true
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Created order is in the list\", () => {\r
+
+      \    const response = pm.response.json();\r
+
+      \    //let isOrderIDInResponse = false;\r
+
+      \    const foundOrder = response.find((order) => order.id === pm.collectionVariables.get(\"orderId\"))\r
+
+      \    pm.expect(foundOrder).to.be.an('object');\r
+
+      \    /*\r
+
+      \    response.forEach((order) => {\r
+
+      \        if (order.id === pm.collectionVariables.get(\"orderId\")) {\r
+
+      \        isOrderIDInResponse = true;\r
+
+      \        }\r
+
+      \    })\r
+
+      \    */\r
+
+      \   /* \r
+
+      \    console.log(pm.collectionVariables.get(\"orderId\"))\r
+
+      \    for(let i=0; i < response.length; i++){\r
+
+      \        if(response[i].id === pm.collectionVariables.get(\"orderId\")) {\r
+
+      \        console.log(\"found it\");\r
+
+      \        isOrderIDInResponse = true;\r
+
+      \        }\r
+
+      \    }\r
+
+      \    */\r
+
+      \    //pm.expect(isOrderIDInResponse).to.be.true;\r
+
+      })"
+    language: text/javascript
+order: 15000

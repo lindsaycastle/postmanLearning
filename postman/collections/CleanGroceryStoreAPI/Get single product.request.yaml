@@ -1,0 +1,74 @@
+$kind: http-request
+url: "{{baseUrl}}/products/:productId?product-label=true"
+method: GET
+queryParams:
+  product-label: "true"
+pathVariables:
+  productId: "{{productId}}"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Product object\", () => { \r
+
+      \    pm.expect(response).to.be.an('object');\r
+
+      \    console.log(response.name);\r
+
+      })\r
+
+      \r
+
+      pm.test('Correct product was retrived', () => {\r
+
+      \    pm.expect(response.id).to.eql(pm.collectionVariables.get('productId'));\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Product name\", () => {\r
+
+      \    pm.expect(response.name).to.eql(\"Don Francisco Colombia Supremo Medium Roast\");\r
+
+      \    pm.expect(response.name).to.be.a('string');\r
+
+      \    console.log(response.name);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Product price\", () => {\r
+
+      \    pm.expect(response.price).to.be.a('number');\r
+
+      \    pm.expect(response.price).to.be.above(0);\r
+
+      \    console.log(response.price);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Product is in stock\", () => {\r
+
+      \    pm.expect(response.inStock).to.be.true;\r
+
+      \    console.log(response.inStock);\r
+
+      })"
+    language: text/javascript
+order: 3000

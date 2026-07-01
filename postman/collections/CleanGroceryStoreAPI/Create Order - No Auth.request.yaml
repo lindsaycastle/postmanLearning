@@ -1,0 +1,33 @@
+$kind: http-request
+url: "{{baseUrl}}/orders"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"cartId\": \"{{cartId}}\",\r
+
+    \    \"customerName\": \"{{$randomFullName}}\"\r
+
+    }"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 401\", function () {\r
+
+      \    pm.response.to.have.status(401);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Error message\", () => {\r
+
+      \    const response = pm.response.json();\r
+
+      \    pm.expect(response.error).to.eql(\"Missing Authorization header.\");\r
+
+      })"
+    language: text/javascript
+order: 19000

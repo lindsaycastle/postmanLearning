@@ -1,0 +1,47 @@
+$kind: http-request
+url: "{{baseUrl}}/orders"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"cartId\": \"{{cartId}}\",\r
+
+    \    \"customerName\": \"{{$randomFullName}}\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Order created\", () => {\r
+
+      const response = pm.response.json();\r
+
+      \    pm.expect(response).to.be.an('object');\r
+
+      \    pm.expect(response).to.haveOwnProperty('orderId');\r
+
+      \    //pm.expect(response.orderId).to.be.a('string');\r
+
+      \    pm.expect(response).to.haveOwnProperty('created');\r
+
+      \    pm.expect(response.created).to.be.true;\r
+
+      \r
+
+      \    pm.collectionVariables.set(\"orderId\", response.orderId);\r
+
+      });"
+    language: text/javascript
+order: 14000

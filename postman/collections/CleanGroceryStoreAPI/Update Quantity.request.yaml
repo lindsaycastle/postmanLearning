@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/carts/:cartId/items/:itemId"
+method: PATCH
+pathVariables:
+  cartId: "{{cartId}}"
+  itemId: "{{itemId}}"
+body:
+  type: json
+  content: "{\r\n    \"quantity\": 4\r\n}"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 204\", function () {\r
+
+      \    pm.response.to.have.status(204);\r
+
+      });"
+    language: text/javascript
+order: 9000
