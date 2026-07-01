@@ -1,8 +1,11 @@
 $kind: http-request
+name: Get all orders
 url: "{{baseUrl}}/orders"
 method: GET
 headers:
-  Authorization: Bearer:{{vault:groc_ath}}
+  - key: Authorization
+    value: Bearer:{{vault:groc_ath}}
+    disabled: true
 body:
   type: json
   content: ""
